@@ -1,60 +1,9 @@
-import { questions as pregunta } from './preguntas.js';
-
-
-const validateQuestion =  (selectionAnswer) => {
-    let numberquestion = sessionStorage.getItem('numberQuestion');
-    return (selectionAnswer === pregunta[numberquestion].correctResponse) ? true: false; 
-}
-
-const insertQuestion = (numberCuestion) => {
-    let display = document.querySelector("#viewQuestion");
-    display.innerText= `${pregunta[numberCuestion].questions}`; 
-    
-    let answer = document.querySelector("#response");
-    answer.innerText = `${pregunta[numberCuestion].response}`;
-}
-
-const ramdom = () =>{
-    let number = parseInt(Math.random() * (3 - 1) + 1);
-    insertQuestion(number);
-    sessionStorage.setItem('numberQuestion', number);
-}
-
-const desactivationsButtons = () =>{
-    const btnA = document.querySelector('#btnA'),
-        btnB = document.querySelector('#btnB'),
-        btnC = document.querySelector('#btnC'),
-        btnD = document.querySelector('#btnD'),
-        startGame = document.querySelector('#startGame');
-
-    btnA.disabled = true;    
-    btnB.disabled = true;    
-    btnC.disabled = true;    
-    btnD.disabled = true;    
-    startGame.disabled = false;
-}
-
-const activationsButtons = () =>{
-    const btnA = document.querySelector('#btnA'),
-        btnB = document.querySelector('#btnB'),
-        btnC = document.querySelector('#btnC'),
-        btnD = document.querySelector('#btnD'),
-        startGame = document.querySelector('#startGame');
-
-    btnA.disabled = false;    
-    btnB.disabled = false;    
-    btnC.disabled = false;    
-    btnD.disabled = false;    
-    startGame.disabled = true;
-} 
-
-
-const registerUser = () =>{
-    desactivationsButtons();
-    let name = prompt("Ingrese el nombre del jugador");
-    // localStorage.setItem
-}
-
+import { ramdom, 
+    validateQuestion, 
+    activationsButtons,
+    points,
+    restarPoints, 
+    registerUser} from './functionProgram.js';
 
 export const viewCuestion = () =>{
     // Llamando el contenedor
@@ -91,10 +40,14 @@ export const viewCuestion = () =>{
     responseA.value = 'A';
     responseA.onclick = () =>{
         const validation = validateQuestion('A');
-        if(validation)
+        if(validation){
+            points(1);
             ramdom();
-        else 
-            registerUser();
+        }
+        else{
+            let puntos = points()
+            registerUser(puntos);
+        }
     }
 
     const responseB = document.createElement("input");
@@ -105,10 +58,14 @@ export const viewCuestion = () =>{
     responseB.value = 'B';
     responseB.onclick = () => {
         const validation = validateQuestion('B');
-        if(validation)
+        if(validation){
+            points(1);
             ramdom();
-        else 
-            registerUser();
+        }
+        else{
+            let puntos = points()
+            registerUser(puntos);
+        }
     };
 
     const responseC = document.createElement("input");
@@ -119,10 +76,14 @@ export const viewCuestion = () =>{
     responseC.value = 'C';
     responseC.onclick = () =>{
         const validation = validateQuestion('C');
-        if(validation)
+        if(validation){
+            points(1);
             ramdom();
-        else 
-            registerUser();
+        }
+        else{
+            let puntos = points()
+            registerUser(puntos);
+        }
     };
 
     const responseD = document.createElement("input");
@@ -133,10 +94,14 @@ export const viewCuestion = () =>{
     responseD.value = 'D';
     responseD.onclick = () =>{
         const validation = validateQuestion('D');
-        if(validation)
+        if(validation){
+            points(1);
             ramdom();
-        else 
-            registerUser();
+        }
+        else{
+            let puntos = points()
+            registerUser(puntos);
+        }
     };
 
     /**
@@ -151,6 +116,7 @@ export const viewCuestion = () =>{
     button.onclick = () =>{
         ramdom();
         activationsButtons();
+        restarPoints();
     };
     
     
