@@ -1,25 +1,15 @@
-/**
- * Funcion encargarda de crear la etiqueta radio y asignarle los valores.
- * @param {*} name 
- * @returns 
- */
-const tagInputRadio = (name) =>{
-    const responseQuestion = document.createElement("input");
-    responseQuestion.type = "submit";
-    responseQuestion.name = "question";   
-    responseQuestion.value = name;
-    return responseQuestion;
+import { questions as pregunta } from './preguntas.js';
+
+const insertQuestion = (numberCuestion) => {
+    const display = document.querySelector("#viewQuestion");
+    display.innerText= `${pregunta[numberCuestion].questions}`; 
 }
 
-/**
- *  Funcion encargada de crear la etiqueta label
- *  @param { string } name es la 
- */
-const tagLabel = (name) =>{
-    const labelResponse = document.createElement('label');
-    labelResponse.textContent = name;
-    return labelResponse;
+const iniciar = () =>{
+    let number = parseInt(Math.random() * (3 - 1) + 1);
+    insertQuestion(number);
 }
+
 
 export const viewCuestion = () =>{
     // Llamando el contenedor
@@ -36,24 +26,50 @@ export const viewCuestion = () =>{
      * Constante encargada de realizar la creacion de 
      * la etiqueta input, para poder mostrar las preguntas
      */
+    const divResponse = document.createElement("div");
+    divResponse.classList.add("div-response");
+
     const viewQuestion = document.createElement("input");
     viewQuestion.classList.add("display")
     viewQuestion.type = "text";
     viewQuestion.readOnly = true;
     viewQuestion.id = "viewQuestion";
     
+    const responseA = document.createElement("input");
+    responseA.id = "btnA";
+    responseA.type = "submit";
+    responseA.name = "question";   
+    responseA.value = 'A';
+    responseA.onclick = () =>{
+        console.log('A');
+    }
 
-    /**
-     * Codigo encargado de llamar de manera dinamica 
-     * y llamada las funciones que permiten crear las etiqueta label
-     * y etiqueta radio
-     */
-    const conteinaerRadio = document.createElement("div");
-    conteinaerRadio.classList.add("radio-response");
-    let arr = ['A','B','C', 'D'];   
-    arr.forEach( item => {
-        conteinaerRadio.append(tagInputRadio(item));
-    });
+    const responseB = document.createElement("input");
+    responseB.id = "btnB";
+    responseB.type = "submit";
+    responseB.name = "question";   
+    responseB.value = 'B';
+    responseB.onclick = () =>{
+        console.log('B');
+    };
+
+    const responseC = document.createElement("input");
+    responseC.id = "btnC";
+    responseC.type = "submit";
+    responseC.name = "question";   
+    responseC.value = 'C';
+    responseC.onclick = () =>{
+        console.log('C');
+    };
+
+    const responseD = document.createElement("input");
+    responseD.id = "btnD";
+    responseD.type = "submit";
+    responseD.name = "question";   
+    responseD.value = 'D';
+    responseD.onclick = () =>{
+        console.log('D');
+    };
 
     /**
      * Creando un botton, el cual tiene como funcionalidad 
@@ -62,18 +78,12 @@ export const viewCuestion = () =>{
     const button = document.createElement('input');
     button.classList.add("button");
     button.type = "submit";
-    button.textContent = "Enviar Respuesta";
-
+    button.textContent = "Iniciar Juego";
+    button.onclick = iniciar;
+    
+    
     //Agregando los contenedores de las etiquetas.
-    cuestionContiner.append(h1,viewQuestion, conteinaerRadio)
+    divResponse.append(responseA, responseB, responseC, responseD)
+    cuestionContiner.append(h1,viewQuestion, divResponse, button); //
     container.append(cuestionContiner);
-}
-
-
-const hola = () =>{
-    const siguiente = document.querySelector('.radio-response');
-
-    siguiente.addEventListener('click', () =>{
-        console.log('hola');
-    });
 }

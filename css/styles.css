@@ -27,8 +27,10 @@
 
 
 
-.radio-response{
-    padding: 10px;
-    margin: 10px;
+#btnA,
+#btnB,
+#btnC,
+#btnD{
+    margin: 8px;
 }
 
