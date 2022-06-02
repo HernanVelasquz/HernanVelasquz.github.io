@@ -3,7 +3,8 @@ import { ramdom,
     activationsButtons,
     points,
     restarPoints, 
-    registerUser} from './functionProgram.js';
+    registerUser,
+} from './functionProgram.js';
 
 export const viewCuestion = () =>{
     // Llamando el contenedor
@@ -19,6 +20,8 @@ export const viewCuestion = () =>{
     /**
      * Constante encargada de realizar la creacion de 
      * la etiqueta input, para poder mostrar las preguntas
+     * y las respuestas disponibles para que el usuario pueda seleccionar
+     * la correcta
      */
     const divResponse = document.createElement("div");
     divResponse.classList.add("div-response");
@@ -31,7 +34,10 @@ export const viewCuestion = () =>{
     viewResponse.classList.add("display");
     viewResponse.id = "response";
 
-    
+    /**
+     * Creacion de los botones los cuales 
+     * podra usar el usuario para seleccionar la respuesta correcta
+     */
     const responseA = document.createElement("input");
     responseA.id = "btnA";
     responseA.type = "submit";
@@ -41,7 +47,7 @@ export const viewCuestion = () =>{
     responseA.onclick = () =>{
         const validation = validateQuestion('A');
         if(validation){
-            points(1);
+            validationLevel(points(1));
             ramdom();
         }
         else{
@@ -95,12 +101,12 @@ export const viewCuestion = () =>{
     responseD.onclick = () =>{
         const validation = validateQuestion('D');
         if(validation){
-            points(1);
+            validationLevel(points(1));
             ramdom();
         }
         else{
-            let puntos = points()
-            registerUser(puntos);
+            let puntos = points();
+            registerUser(puntos, level);
         }
     };
 
@@ -119,6 +125,7 @@ export const viewCuestion = () =>{
         restarPoints();
     };
     
+    const divTable = document.createElement("div");
     
     //Agregando los contenedores de las etiquetas.
     divResponse.append(responseA, responseB, responseC, responseD)

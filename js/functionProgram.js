@@ -31,6 +31,12 @@ export const validateQuestion = (selectionAnswer) => {
     return (selectionAnswer === pregunta[numberquestion].correctResponse) ? true: false; 
 }
 let count = 0;
+/**
+ * Funcion para cargar los puntos del jugador
+ * @param {number} option, encargada de verificar que sea una variable numerica
+ * si es 1, validar si se suma el numero de los punts
+ * @returns retorna los puntos que va ganando o retorna todos los puntos.
+ */
 export const points = (option = 2) =>{
     if(option == 1){
         count += 5;
@@ -40,7 +46,9 @@ export const points = (option = 2) =>{
         return count; 
     }
 }
-
+/**
+ * Funcion encargada de restablecer los puntos del juegador
+ */
 export const restarPoints = () =>{
     count = 0;
 }
@@ -80,8 +88,8 @@ export const activationsButtons = () =>{
 } 
 
 
-export const registerUser = (puntos) =>{
+export const registerUser = (puntos, level) =>{
     desactivationsButtons();
     let name = prompt("Ingrese el nombre del jugador");
-    localStorage.setItem(name, JSON.stringify(puntos));
+    localStorage.setItem(name, JSON.stringify([puntos, level]));
 }
