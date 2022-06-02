@@ -1,13 +1,58 @@
 import { questions as pregunta } from './preguntas.js';
 
-const insertQuestion = (numberCuestion) => {
-    const display = document.querySelector("#viewQuestion");
-    display.innerText= `${pregunta[numberCuestion].questions}`; 
+
+const validateQuestion =  (selectionAnswer) => {
+    let numberquestion = sessionStorage.getItem('numberQuestion');
+    return (selectionAnswer === pregunta[numberquestion].correctResponse) ? true: false; 
 }
 
-const iniciar = () =>{
+const insertQuestion = (numberCuestion) => {
+    let display = document.querySelector("#viewQuestion");
+    display.innerText= `${pregunta[numberCuestion].questions}`; 
+    
+    let answer = document.querySelector("#response");
+    answer.innerText = `${pregunta[numberCuestion].response}`;
+}
+
+const ramdom = () =>{
     let number = parseInt(Math.random() * (3 - 1) + 1);
     insertQuestion(number);
+    sessionStorage.setItem('numberQuestion', number);
+}
+
+const desactivationsButtons = () =>{
+    const btnA = document.querySelector('#btnA'),
+        btnB = document.querySelector('#btnB'),
+        btnC = document.querySelector('#btnC'),
+        btnD = document.querySelector('#btnD'),
+        startGame = document.querySelector('#startGame');
+
+    btnA.disabled = true;    
+    btnB.disabled = true;    
+    btnC.disabled = true;    
+    btnD.disabled = true;    
+    startGame.disabled = false;
+}
+
+const activationsButtons = () =>{
+    const btnA = document.querySelector('#btnA'),
+        btnB = document.querySelector('#btnB'),
+        btnC = document.querySelector('#btnC'),
+        btnD = document.querySelector('#btnD'),
+        startGame = document.querySelector('#startGame');
+
+    btnA.disabled = false;    
+    btnB.disabled = false;    
+    btnC.disabled = false;    
+    btnD.disabled = false;    
+    startGame.disabled = true;
+} 
+
+
+const registerUser = () =>{
+    desactivationsButtons();
+    let name = prompt("Ingrese el nombre del jugador");
+    // localStorage.setItem
 }
 
 
@@ -28,47 +73,70 @@ export const viewCuestion = () =>{
      */
     const divResponse = document.createElement("div");
     divResponse.classList.add("div-response");
-
-    const viewQuestion = document.createElement("input");
+    
+    const viewQuestion = document.createElement("label");
     viewQuestion.classList.add("display")
-    viewQuestion.type = "text";
-    viewQuestion.readOnly = true;
     viewQuestion.id = "viewQuestion";
+
+    const viewResponse = document.createElement("label");
+    viewResponse.classList.add("display");
+    viewResponse.id = "response";
+
     
     const responseA = document.createElement("input");
     responseA.id = "btnA";
     responseA.type = "submit";
-    responseA.name = "question";   
+    responseA.name = "question";
+    responseA.disabled = true;
     responseA.value = 'A';
     responseA.onclick = () =>{
-        console.log('A');
+        const validation = validateQuestion('A');
+        if(validation)
+            ramdom();
+        else 
+            registerUser();
     }
 
     const responseB = document.createElement("input");
     responseB.id = "btnB";
     responseB.type = "submit";
-    responseB.name = "question";   
+    responseB.name = "question";
+    responseB.disabled = true;   
     responseB.value = 'B';
-    responseB.onclick = () =>{
-        console.log('B');
+    responseB.onclick = () => {
+        const validation = validateQuestion('B');
+        if(validation)
+            ramdom();
+        else 
+            registerUser();
     };
 
     const responseC = document.createElement("input");
     responseC.id = "btnC";
     responseC.type = "submit";
-    responseC.name = "question";   
+    responseC.name = "question";
+    responseC.disabled = true;   
     responseC.value = 'C';
     responseC.onclick = () =>{
-        console.log('C');
+        const validation = validateQuestion('C');
+        if(validation)
+            ramdom();
+        else 
+            registerUser();
     };
 
     const responseD = document.createElement("input");
     responseD.id = "btnD";
     responseD.type = "submit";
-    responseD.name = "question";   
+    responseD.name = "question";
+    responseD.disabled = true;   
     responseD.value = 'D';
     responseD.onclick = () =>{
-        console.log('D');
+        const validation = validateQuestion('D');
+        if(validation)
+            ramdom();
+        else 
+            registerUser();
     };
 
     /**
@@ -77,13 +145,17 @@ export const viewCuestion = () =>{
      */
     const button = document.createElement('input');
     button.classList.add("button");
+    button.id = "startGame";
     button.type = "submit";
     button.textContent = "Iniciar Juego";
-    button.onclick = iniciar;
+    button.onclick = () =>{
+        ramdom();
+        activationsButtons();
+    };
     
     
     //Agregando los contenedores de las etiquetas.
     divResponse.append(responseA, responseB, responseC, responseD)
-    cuestionContiner.append(h1,viewQuestion, divResponse, button); //
+    cuestionContiner.append(h1,viewQuestion, viewResponse,divResponse, button); //
     container.append(cuestionContiner);
 }

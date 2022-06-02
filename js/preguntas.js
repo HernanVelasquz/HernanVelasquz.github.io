@@ -11,7 +11,7 @@ export const questions = [
     },
     {
         questions: "¿Quién fue el primer gobernante del México independiente?",
-        response: "A.Agustín de Iturbide. B.Francisco I madero. C.Porfirio Díaz. D.Benito Juárez.",
+        response: "A.Agustín de Iturbide. - B.Francisco I madero. - C.Porfirio Díaz.  - D.Benito Juárez.",
         correctResponse:"D"
     }
 ]

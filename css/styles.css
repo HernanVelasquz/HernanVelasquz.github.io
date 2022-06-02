@@ -21,10 +21,11 @@
 }
 
 .display{
-    width: 350px;
+    width: 380px;
     height: 100px;
+    padding: 2px;
+    border: solid 2px;
 }
-
 
 
 #btnA,
