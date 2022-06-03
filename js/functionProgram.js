@@ -15,7 +15,7 @@ import { questions as pregunta } from './preguntas.js';
  * Funcion encargada de crear numeros aleatorios para mostrar las preguntas.
  */
  export const ramdom = () =>{
-    let number = parseInt(Math.random() * (3 - 1) + 1);
+    let number = parseInt(Math.random() * (15 - 1) + 1);
     insertQuestion(number);
     sessionStorage.setItem('numberQuestion', number);
 }
@@ -46,13 +46,13 @@ let count = 0;
 /**
  * Funcion para cargar los puntos del jugador
  * @param {number} option, encargada de verificar que sea una variable numerica
- * si es 1, validar si se suma el numero de los punts
+ * si es 1, se se le suma 5 puntos al juegador,
+ * si es 2, se retorna los puntos que tenga almacenado el jugador.
  * @returns retorna los puntos que va ganando o retorna todos los puntos.
  */
 export const points = (option = 2) =>{
     if(option == 1){
         count += 5;
-        console.log(count);
         return count;
     }else{
         return count; 
