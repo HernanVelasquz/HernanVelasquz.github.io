@@ -6,6 +6,8 @@ import { ramdom,
     registerUser,
 } from './functionProgram.js';
 
+import { createTable } from './view.table.js'
+
 export const viewCuestion = () =>{
     // Llamando el contenedor
     const container = document.querySelector('#container');
@@ -44,10 +46,14 @@ export const viewCuestion = () =>{
     responseA.name = "question";
     responseA.disabled = true;
     responseA.value = 'A';
+    /**
+     * Evento que realiza la llamda de los eventos que validan la respuesta
+     * y carga los puntos y si la respuesta es erronea, terminar el juego.
+     */
     responseA.onclick = () =>{
         const validation = validateQuestion('A');
         if(validation){
-            validationLevel(points(1));
+            points(1);
             ramdom();
         }
         else{
@@ -62,6 +68,10 @@ export const viewCuestion = () =>{
     responseB.name = "question";
     responseB.disabled = true;   
     responseB.value = 'B';
+      /**
+     * Evento que realiza la llamda de los eventos que validan la respuesta
+     * y carga los puntos y si la respuesta es erronea, terminar el juego.
+     */
     responseB.onclick = () => {
         const validation = validateQuestion('B');
         if(validation){
@@ -80,6 +90,10 @@ export const viewCuestion = () =>{
     responseC.name = "question";
     responseC.disabled = true;   
     responseC.value = 'C';
+     /**
+     * Evento que realiza la llamda de los eventos que validan la respuesta
+     * y carga los puntos y si la respuesta es erronea, terminar el juego.
+     */
     responseC.onclick = () =>{
         const validation = validateQuestion('C');
         if(validation){
@@ -98,10 +112,14 @@ export const viewCuestion = () =>{
     responseD.name = "question";
     responseD.disabled = true;   
     responseD.value = 'D';
+     /**
+     * Evento que realiza la llamda de los eventos que validan la respuesta
+     * y carga los puntos y si la respuesta es erronea, terminar el juego.
+     */
     responseD.onclick = () =>{
         const validation = validateQuestion('D');
         if(validation){
-            validationLevel(points(1));
+            points(1);
             ramdom();
         }
         else{
@@ -119,16 +137,27 @@ export const viewCuestion = () =>{
     button.id = "startGame";
     button.type = "submit";
     button.textContent = "Iniciar Juego";
+     /**
+     * Relizar la llamada del inicio del juego 
+     * y la llamada del metodo random,
+     * activar los botones y 
+     * activar los puntos
+     */
     button.onclick = () =>{
         ramdom();
         activationsButtons();
         restarPoints();
     };
     
-    const divTable = document.createElement("div");
-    
-    //Agregando los contenedores de las etiquetas.
+    // Llamando del metodo de la tabla.
+    const table = createTable();
+
+    /**
+     * Realizar el agregado de los contenedores
+     * y a la llamada del contenedor padre.
+     */
     divResponse.append(responseA, responseB, responseC, responseD)
     cuestionContiner.append(h1,viewQuestion, viewResponse,divResponse, button); //
-    container.append(cuestionContiner);
+    container.append(cuestionContiner, table);
 }
+

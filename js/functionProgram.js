@@ -1,6 +1,26 @@
 import { questions as pregunta } from './preguntas.js';
 
 /**
+ * Funcion encargada de relizar el registro de los puntos 
+ * y nombre de los usuario para guardarlos en el localStorage
+ * @param {int} puntos, variable que recibe para registrar las variables
+ */
+ export const registerUser = (puntos) => {
+    desactivationsButtons();
+    let name = prompt("Ingrese el nombre del jugador");
+    localStorage.setItem(name, JSON.stringify(puntos));
+}
+
+/**
+ * Funcion encargada de crear numeros aleatorios para mostrar las preguntas.
+ */
+ export const ramdom = () =>{
+    let number = parseInt(Math.random() * (3 - 1) + 1);
+    insertQuestion(number);
+    sessionStorage.setItem('numberQuestion', number);
+}
+
+/**
  * Funcion encargada de insertar las preguntas y respuestas en el html
  * @param {numberCuestion} el numero de la pregunta. 
  */
@@ -12,14 +32,6 @@ const insertQuestion = (numberCuestion) => {
     answer.innerText = `${pregunta[numberCuestion].response}`;
 }
 
-/**
- * Funcion encargada de crear numeros aleatorios para mostrar las preguntas.
- */
-export const ramdom = () =>{
-    let number = parseInt(Math.random() * (3 - 1) + 1);
-    insertQuestion(number);
-    sessionStorage.setItem('numberQuestion', number);
-}
 
 /**
  * Funcion para validar la respuesta correcta.
@@ -87,9 +99,3 @@ export const activationsButtons = () =>{
     startGame.disabled = true;
 } 
 
-
-export const registerUser = (puntos, level) =>{
-    desactivationsButtons();
-    let name = prompt("Ingrese el nombre del jugador");
-    localStorage.setItem(name, JSON.stringify([puntos, level]));
-}
